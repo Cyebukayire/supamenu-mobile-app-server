@@ -13,11 +13,11 @@
     "basePath": "/api/v1",
     "tags": [
       {
-        "name": "User",
-        "description": "APIs for user"
+        "name": "Users",
+        "description": "APIs for users"
       }
     ],
-    "schemes": ["https", "http"],
+    "schemes": ["http", "https"],
     "consumes": ["application/json"],
     "produces": ["application/json"],
     "paths": {
@@ -32,7 +32,7 @@
           }
         ],
         "get": {
-          "tags": ["User"],
+          "tags": ["Users"],
           "summary": "Get all users",
           "responses": {
             "200": {
@@ -47,9 +47,9 @@
           }
         }
       },
-      "/users/signup": {
+      "/auth/signup": {
         "post": {
-          "tags": ["User"],
+          "tags": ["Users"],
           "summary": "User signup",
           "parameters": [
             {
@@ -72,10 +72,10 @@
           }
         }
       },
-      "/users/signin": {
+      "/auth/signin": {
         "post": {
-          "tags": ["User"],
-          "summary": "Sign in",
+          "tags": ["Users"],
+          "summary": "User Sign in",
           "parameters": [
             {
               "name": "user",
@@ -100,12 +100,37 @@
             "200": {
               "description": "User authenticated.",
               "schema": {
-                "type": "object",
-                "properties": {
-                  "token": {
-                    "type": "string"
-                  }
-                }
+                "type": "object"
+              }
+            }
+          }
+        }
+      },
+      "/users/id/{id}": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of the user",
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authentication token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "get": {
+          "tags": ["Users"],
+          "summary": "Get user with given ID",
+          "responses": {
+            "200": {
+              "description": "User is found",
+              "schema": {
+                "$ref": "#/definitions/User"
               }
             }
           }
@@ -128,28 +153,27 @@
             "type": "string"
           }
         ],
-        "get": {
-          "tags": ["User"],
-          "summary": "Get user with given ID",
-          "responses": {
-            "200": {
-              "description": "User is found",
-              "schema": {
-                "$ref": "#/definitions/User"
-              }
-            }
-          }
-        },
-        "patch": {
+        "put": {
           "summary": "Update user with give ID",
-          "tags": ["User"],
+          "tags": ["Users"],
           "parameters": [
             {
               "name": "user",
               "in": "body",
               "description": "New values of properties",
               "schema": {
-                "type": "object"
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
               }
             }
           ],
@@ -161,21 +185,39 @@
               }
             }
           }
-        },
+        }
+      },
+      "/users/delete/{id}": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of the user",
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authentication token",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "delete": {
           "summary": "Delete user with given ID",
-          "tags": ["User"],
+          "tags": ["Users"],
           "responses": {
             "200": {
               "description": "User is deleted",
               "schema": {
-                "type": "object"
+                "$ref": "#/definitions/User"
               }
             }
           }
         }
-      },
-      
+      }
+    },
     "definitions": {
       "User": {
         "required": ["name", "email", "password"],
@@ -189,16 +231,9 @@
           },
           "password": {
             "type": "string"
-          },
-          "role": {
-            "type": "string"
-          },
-          "registered_at": {
-            "type": "string"
           }
         }
       }
     }
-  }
 }
   
