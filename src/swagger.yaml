@@ -1,0 +1,33 @@
+swagger: "2.0"
+info:
+  version: "0.0.1"
+  description: "User Management System"
+  title: "UMS APIs"
+  license: { "name": "MIT", "url": "https://opensource.org/licenses/MIT" }
+schemes:
+  - http
+  - https
+host: "localhost:4000"
+basepath: "api/v1"
+consumes:
+  - application/json
+produces:
+  - application/json
+
+paths:
+  /auth/signup:
+    get:
+      tags:
+        - User #users model
+      summary: "returns a registered user"
+      responses:
+        200:
+          description: New user has been registered successfully
+          # schema:
+          # type: ''
+        400:
+          description: Bad Request
+        default:
+          description: Unexpected error
+          schema:
+            $ref: Error
