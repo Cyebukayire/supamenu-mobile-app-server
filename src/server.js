@@ -4,7 +4,7 @@ import authMiddleware from "./middlewares/auth.middleware";
 import authRouter from './routes/Auth.route';
 import userRouter from './routes/User.route';
 import swaggerUi from 'swagger-ui-express';
-import swaggerDoc from './swagger'
+import swaggerDoc from './swaggerDoc.json'
 import YAML from "yamljs";
 
 DbConnection();
