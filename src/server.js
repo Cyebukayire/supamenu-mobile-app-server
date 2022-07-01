@@ -3,7 +3,7 @@ import { DbConnection } from "./database";
 import authMiddleware from "./middlewares/auth.middleware";
 import authRouter from './routes/Auth.route';
 import userRouter from './routes/User.route';
-import swaggerDoc from './api-docs/basicInfo';
+import swaggerDoc from './swagger';
 import swaggerUi from 'swagger-ui-express';
 
 DbConnection();
