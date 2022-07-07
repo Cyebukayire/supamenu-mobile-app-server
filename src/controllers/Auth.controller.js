@@ -7,12 +7,14 @@ export const Signup = async(req, res) => {
     if(user) return res.status(400).json({success: false, message: "User already exists"});
     // save user
     user = new User({
-        name: req.body.name,
+        fname: req.body.firstName,
+        lname: req.body.lastName,
         email: req.body.email,
+        mobile: req.body.mobile,
         password: req.body.password
     })
     await user.save();
-    return res.status(200).json({success: true, data: user});
+    return res.status(200).json({success: true, data: user, message: "Signed up successfully"});
 }
 
 export const Signin = async(req, res) => {
