@@ -2,7 +2,7 @@ import Product from "../database/models/Product.model";
 import User from "../database/models/User.model";
 
 export const addProduct = async(req, res) =>{
-   const userExists = User.findOne({_id: req.body.userID});
+   const userExists = await User.findOne({_id: req.body.userID});
    if(!userExists) { res.status(401).json({success: false, message: "Unauthorized"})}
    const product = new Product({
       userID: req.body.userID,
